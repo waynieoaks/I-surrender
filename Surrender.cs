@@ -7,7 +7,6 @@ namespace Surrender
 {
 	public class Main : Script
 	{
-
 		//public static bool AreHandsUp { get; set; }
 		public static string INIpath = "scripts\\Surrender.ini";
 		public static ScriptSettings IniSettings;
@@ -28,14 +27,20 @@ namespace Surrender
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.KeyCode == SurrenderKey) 
-			{
-				Surrender();
-			} else if (e.KeyCode == ClearKey)
-			{
-				// Clear the wanted level
-				Game.Player.WantedLevel = 0;
-			}
+			if ((e.KeyCode == SurrenderKey) && (
+					(e.KeyCode == SurrenderModifierKey) || 
+					SurrenderModifierKey == Keys.None)	)
+				{
+					// Surrender
+					Surrender();
+				} 
+			else if ((e.KeyCode == ClearKey) && (
+					(e.KeyCode == ClearModifierKey) ||
+					ClearModifierKey == Keys.None)  )  //	(e.KeyCode == ClearKey)
+				{
+					// Clear the wanted level
+					Game.Player.WantedLevel = 0;
+				}
 		}
 
 		private void Surrender()
@@ -93,10 +98,6 @@ namespace Surrender
 
 		private void LoadValuesFromIniFile()
 		{
-			//	IniSettings = ScriptSettings.Load(INIpath);
-
-			//	surrenderKey = IniSettings.GetValue<Keys>("Controls", "surrenderKey", Keys.K);
-
 			ScriptSettings scriptSettings = ScriptSettings.Load(INIpath);
 			SurrenderKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Surrender_Key", Keys.K);
 			SurrenderModifierKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Surrender_Modifier", Keys.ControlKey);
