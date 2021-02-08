@@ -1,11 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-<<<<<<< Updated upstream
-=======
-using System.Windows.Input;
->>>>>>> Stashed changes
-using GTA;
+﻿using GTA;
 using GTA.Native;
+using System.Windows.Forms;
 
 namespace Surrender
 {
@@ -19,11 +14,12 @@ namespace Surrender
 		public static Keys ClearKey { get; set; }
 		public static Keys ClearModifierKey { get; set; }
 		public static bool DropWeapon { get; set; }
+		public static bool AmISurrendering { get; set; }
 
 		public Main()
 		{
 			LoadValuesFromIniFile();
-			
+
 			KeyDown += OnKeyDown;
 
 			Interval = 1000; // Try reducing to 500
@@ -31,29 +27,13 @@ namespace Surrender
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
-<<<<<<< Updated upstream
-			if ((e.KeyCode == SurrenderKey) && (
-					(e.KeyCode == SurrenderModifierKey) || 
-					SurrenderModifierKey == Keys.None)	)
-				{
-					// Surrender
-					Surrender();
-				} 
-			else if ((e.KeyCode == ClearKey) && (
-					(e.KeyCode == ClearModifierKey) ||
-					ClearModifierKey == Keys.None)  )  //	(e.KeyCode == ClearKey)
-				{
-					// Clear the wanted level
-					Game.Player.WantedLevel = 0;
-				}
-=======
 
 			if (e.KeyCode == SurrenderKey && e.Modifiers == SurrenderModifierKey)
-			// (e.KeyCode == SurrenderKey && (e.Modifiers == SurrenderModifierKey || SurrenderModifierKey == Keys.None))
+
 			{
 				// Surrender
 				Surrender();
-			} 
+			}
 			else if (e.KeyCode == ClearKey && e.Modifiers == ClearModifierKey)
 			{
 				// Clear the wanted level
@@ -63,7 +43,7 @@ namespace Surrender
 			}
 
 //////////////////  TESTING -- REMOVE ////////////////// 
-			else if (e.KeyCode == Keys.F9) 
+			else if (e.KeyCode == Keys.F9)
 			{
 				// Remove after testking kill... 
 				Game.Player.Character.Kill();
@@ -71,10 +51,9 @@ namespace Surrender
 			else if (e.KeyCode == Keys.F8)
 			{
 				// Testing - what is the state of things
-				GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString() );
+				GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString());
 			}
 //////////////////  TESTING -- END ////////////////// 
->>>>>>> Stashed changes
 		}
 
 		private void Surrender()
@@ -82,7 +61,7 @@ namespace Surrender
 
 			// Ped playerPed = Game.Player.Character;
 			int Wanted = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
-			if (Wanted>0)
+			if (Wanted > 0)
 			{
 				if (Wanted > 1)
 				{
@@ -111,19 +90,12 @@ namespace Surrender
 
 		private void HandsUp()
 		{
-<<<<<<< Updated upstream
-			// If holding a weapon, drop it
-			if (DropWeapon == true)
-=======
-
 			bool AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
 			bool AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
 
-			if (AmISurrendering == false)
-			{
 				// Inform code I am surrendering
-				AmISurrendering = true; 
-				
+				AmISurrendering = true;
+
 				// If holding a weapon, drop it
 				if (DropWeapon == true)
 				{
@@ -132,27 +104,7 @@ namespace Surrender
 
 				// Put hands up until code breaks
 				Game.Player.Character.Task.HandsUp(-1);
-			} 
-			else 
->>>>>>> Stashed changes
-			{
-				Function.Call(Hash.SET_PED_DROPS_WEAPON, Game.Player.Character);
-			}
 
-<<<<<<< Updated upstream
-			//Put hands up for 12 seconds to lock player until arrested
-			Game.Player.Character.Task.HandsUp(-1);
-
-			bool Arrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
-			while (Arrested == false)
-			{
-				Arrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
-				Game.Player.WantedLevel = 1;
-				Wait(10);
-				// Arrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
-				//	Game.Player.Character.Task.HandsUp(5000);
-			}
-=======
 			////Attempt to keep wanted level at 1 star
 			//while ((AmIArrested == false) && (AmIWasted == false))
 			//{
@@ -171,7 +123,7 @@ namespace Surrender
 			//			// Attempt to keep wanted level at 1 star
 			//			Game.Player.WantedLevel = 1;
 			//			Wait(10);
-						
+
 			//		}
 			//	}
 			//	else
@@ -180,11 +132,11 @@ namespace Surrender
 			//		break;
 			//	}
 			//}
->>>>>>> Stashed changes
 		}
 
 		private void LoadValuesFromIniFile()
 		{
+			AmISurrendering = false;
 			ScriptSettings scriptSettings = ScriptSettings.Load(INIpath);
 			SurrenderKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Surrender_Key", Keys.K);
 			SurrenderModifierKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Surrender_Modifier", Keys.ControlKey);
