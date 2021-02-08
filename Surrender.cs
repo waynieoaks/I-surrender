@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+<<<<<<< Updated upstream
+=======
+using System.Windows.Input;
+>>>>>>> Stashed changes
 using GTA;
 using GTA.Native;
 
@@ -22,11 +26,12 @@ namespace Surrender
 			
 			KeyDown += OnKeyDown;
 
-			Interval = 1000;
+			Interval = 1000; // Try reducing to 500
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
+<<<<<<< Updated upstream
 			if ((e.KeyCode == SurrenderKey) && (
 					(e.KeyCode == SurrenderModifierKey) || 
 					SurrenderModifierKey == Keys.None)	)
@@ -41,10 +46,40 @@ namespace Surrender
 					// Clear the wanted level
 					Game.Player.WantedLevel = 0;
 				}
+=======
+
+			if (e.KeyCode == SurrenderKey && e.Modifiers == SurrenderModifierKey)
+			// (e.KeyCode == SurrenderKey && (e.Modifiers == SurrenderModifierKey || SurrenderModifierKey == Keys.None))
+			{
+				// Surrender
+				Surrender();
+			} 
+			else if (e.KeyCode == ClearKey && e.Modifiers == ClearModifierKey)
+			{
+				// Clear the wanted level
+				Game.Player.WantedLevel = 0;
+				Game.Player.Character.Task.ClearAll();
+				AmISurrendering = false;
+			}
+
+//////////////////  TESTING -- REMOVE ////////////////// 
+			else if (e.KeyCode == Keys.F9) 
+			{
+				// Remove after testking kill... 
+				Game.Player.Character.Kill();
+			}
+			else if (e.KeyCode == Keys.F8)
+			{
+				// Testing - what is the state of things
+				GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString() );
+			}
+//////////////////  TESTING -- END ////////////////// 
+>>>>>>> Stashed changes
 		}
 
 		private void Surrender()
 		{
+
 			// Ped playerPed = Game.Player.Character;
 			int Wanted = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
 			if (Wanted>0)
@@ -76,12 +111,35 @@ namespace Surrender
 
 		private void HandsUp()
 		{
+<<<<<<< Updated upstream
 			// If holding a weapon, drop it
 			if (DropWeapon == true)
+=======
+
+			bool AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
+			bool AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
+
+			if (AmISurrendering == false)
+			{
+				// Inform code I am surrendering
+				AmISurrendering = true; 
+				
+				// If holding a weapon, drop it
+				if (DropWeapon == true)
+				{
+					Function.Call(Hash.SET_PED_DROPS_WEAPON, Game.Player.Character);
+				}
+
+				// Put hands up until code breaks
+				Game.Player.Character.Task.HandsUp(-1);
+			} 
+			else 
+>>>>>>> Stashed changes
 			{
 				Function.Call(Hash.SET_PED_DROPS_WEAPON, Game.Player.Character);
 			}
 
+<<<<<<< Updated upstream
 			//Put hands up for 12 seconds to lock player until arrested
 			Game.Player.Character.Task.HandsUp(-1);
 
@@ -94,6 +152,35 @@ namespace Surrender
 				// Arrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
 				//	Game.Player.Character.Task.HandsUp(5000);
 			}
+=======
+			////Attempt to keep wanted level at 1 star
+			//while ((AmIArrested == false) && (AmIWasted == false))
+			//{
+			//	if (AmISurrendering == true)
+			//	{
+			//		AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
+			//		AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
+			//		if ((AmIArrested == true) || (AmIWasted == true))
+			//		{
+			//			// I have been arrested or killed, inform the code and breakout
+			//			AmISurrendering = false;
+			//			break;
+			//		}
+			//		else
+			//		{
+			//			// Attempt to keep wanted level at 1 star
+			//			Game.Player.WantedLevel = 1;
+			//			Wait(10);
+						
+			//		}
+			//	}
+			//	else
+			//	{
+			//		// No longer surrendering - break the loop
+			//		break;
+			//	}
+			//}
+>>>>>>> Stashed changes
 		}
 
 		private void LoadValuesFromIniFile()
