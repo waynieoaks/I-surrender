@@ -1,0 +1,8 @@
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\bin\Debug\Surrender.dll
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\bin\Debug\Surrender.pdb
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\bin\Debug\ScriptHookVDotNet3.dll
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\bin\Debug\ScriptHookVDotNet3.xml
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\obj\Debug\Surrender.csprojAssemblyReference.cache
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\obj\Debug\Surrender.csproj.CopyComplete
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\obj\Debug\Surrender.dll
+E:\SteamStuff\Mod development\My Plugins\Surrender\Surrender\obj\Debug\Surrender.pdb
