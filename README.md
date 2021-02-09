@@ -13,7 +13,7 @@ Modifiers allowing key combinations can be set to Alt, Control, Shift or None.
 
 - Surrender by putting hands up until "Busted"
 - Wanted level kept at 1 star to prevent agressive cops while surrendering
-- Cancel at any point and continue running
+- Cancel and try to keep running (still busted if they catch you)
 - (If enabled) Cheat and clear your wanted level
 - Option to drop weapon in hand on surrendering (gun may misfire when hitting ground)
 
