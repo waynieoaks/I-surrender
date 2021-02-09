@@ -31,8 +31,18 @@ namespace Surrender
 			if (e.KeyCode == SurrenderKey && e.Modifiers == SurrenderModifierKey)
 
 			{
-				// Surrender
-				Surrender();
+				
+				if (AmISurrendering == true) {
+					// Release
+					Game.Player.Character.Task.ClearAll();
+					AmISurrendering = false;
+				} 
+				else
+				{
+					// Surrender
+					Surrender();
+				}
+				
 			}
 			else if (e.KeyCode == ClearKey && e.Modifiers == ClearModifierKey)
 			{
@@ -66,7 +76,6 @@ namespace Surrender
 				if (Wanted > 1)
 				{
 					// Make sure wanted level is 1 star to prevent shooting
-					//Only call if above 1 star to prevent changing when spamming key
 					Game.Player.WantedLevel = 1;
 				}
 
