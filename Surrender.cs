@@ -1,4 +1,5 @@
-﻿using GTA;
+﻿using System;
+using GTA;
 using GTA.Native;
 using System.Windows.Forms;
 
@@ -14,66 +15,80 @@ namespace Surrender
 		public static Keys ClearKey { get; set; }
 		public static Keys ClearModifierKey { get; set; }
 		public static bool DropWeapon { get; set; }
+		public static bool AmIArrested { get; set; }
+		public static bool AmIWasted { get; set; }
 		public static bool AmISurrendering { get; set; }
+		public static int WantedLvL { get; set; }
 
 		public Main()
 		{
 			LoadValuesFromIniFile();
 
 			KeyDown += OnKeyDown;
+			Tick += ChkWantedTick;
 
-			Interval = 1000; // Try reducing to 500
+			//Interval = 50;
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
 		{
 
 			if (e.KeyCode == SurrenderKey && e.Modifiers == SurrenderModifierKey)
-
 			{
-				
 				if (AmISurrendering == true) {
-					// Release
-					Game.Player.Character.Task.ClearAll();
-					AmISurrendering = false;
-				} 
-				else
-				{
-					// Surrender
-					Surrender();
+					DoEscape();
+				} else {
+					DoSurrender();
 				}
 				
 			}
 			else if (e.KeyCode == ClearKey && e.Modifiers == ClearModifierKey)
 			{
-				// Clear the wanted level
-				Game.Player.WantedLevel = 0;
-				Game.Player.Character.Task.ClearAll();
-				AmISurrendering = false;
+				DoClearWanted();
 			}
-
 //////////////////  TESTING -- REMOVE ////////////////// 
-			else if (e.KeyCode == Keys.F9)
-			{
-				// Remove after testking kill... 
-				Game.Player.Character.Kill();
-			}
-			else if (e.KeyCode == Keys.F8)
-			{
-				// Testing - what is the state of things
-				GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString());
-			}
+			//else if (e.KeyCode == Keys.F10)
+			//{
+			//	// Remove after testking kill... 
+			//	Game.Player.WantedLevel = 2;
+			//}
+			//else if (e.KeyCode == Keys.F9)
+			//{
+			//	// Remove after testking kill... 
+			//	Game.Player.Character.Kill();
+			//}
+			//else if (e.KeyCode == Keys.F8)
+			//{
+			//	// Testing - what is the state of things
+			//	GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString());
+			//}
 //////////////////  TESTING -- END ////////////////// 
 		}
 
-		private void Surrender()
+		private void DoClearWanted()
 		{
+			Game.Player.WantedLevel = 0;
+			ClearTasks();
+		}
 
-			// Ped playerPed = Game.Player.Character;
-			int Wanted = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
-			if (Wanted > 0)
+		private void DoEscape()
+		{
+			ClearTasks();
+			GTA.UI.Screen.ShowSubtitle("I suggest you ~r~run~s~...", 6000);
+		}
+
+		private void ClearTasks()
+		{
+			Game.Player.Character.Task.ClearAll();
+			AmISurrendering = false;
+		}
+
+		private void DoSurrender()
+		{
+			WantedLvL = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
+			if (WantedLvL > 0)
 			{
-				if (Wanted > 1)
+				if (WantedLvL > 1)
 				{
 					// Make sure wanted level is 1 star to prevent shooting
 					Game.Player.WantedLevel = 1;
@@ -87,60 +102,52 @@ namespace Surrender
 
 					// Wait until out of vehicle before putting hands up
 					Wait(2000);
-					HandsUp();
 				}
-				else
-				{
-					// Not in vehicle
-					HandsUp();
-				}
+				
+				HandsUp();
 			}
 		}
 
 		private void HandsUp()
 		{
-			bool AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
-			bool AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
+			// Inform code I am surrendering
+			AmISurrendering = true;
 
-				// Inform code I am surrendering
-				AmISurrendering = true;
+			// If holding a weapon, drop it
+			if (DropWeapon == true)
+			{
+				Function.Call(Hash.SET_PED_DROPS_WEAPON, Game.Player.Character);
+			}
+			// Put hands up until code breaks
+			Game.Player.Character.Task.HandsUp(-1);
+		}
 
-				// If holding a weapon, drop it
-				if (DropWeapon == true)
+		private void ChkWantedTick(object sender, EventArgs e)
+		{
+			WantedLvL = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
+			AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
+			AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
+
+			if ( (AmISurrendering == true) && (WantedLvL > 0) )
+			{
+				if ((AmIArrested == true) || (AmIWasted == true))
 				{
-					Function.Call(Hash.SET_PED_DROPS_WEAPON, Game.Player.Character);
+					// I have been arrested or killed, inform the code and breakout
+					AmISurrendering = false;
+					return;
 				}
-
-				// Put hands up until code breaks
-				Game.Player.Character.Task.HandsUp(-1);
-
-			////Attempt to keep wanted level at 1 star
-			//while ((AmIArrested == false) && (AmIWasted == false))
-			//{
-			//	if (AmISurrendering == true)
-			//	{
-			//		AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
-			//		AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
-			//		if ((AmIArrested == true) || (AmIWasted == true))
-			//		{
-			//			// I have been arrested or killed, inform the code and breakout
-			//			AmISurrendering = false;
-			//			break;
-			//		}
-			//		else
-			//		{
-			//			// Attempt to keep wanted level at 1 star
-			//			Game.Player.WantedLevel = 1;
-			//			Wait(10);
-
-			//		}
-			//	}
-			//	else
-			//	{
-			//		// No longer surrendering - break the loop
-			//		break;
-			//	}
-			//}
+				else
+				{
+					// Attempt to keep wanted level at 1 star
+					Game.Player.WantedLevel = 1;
+					return;
+				}
+			} else
+			{
+				// I should not be surrendering
+				AmISurrendering = false;
+				return;
+			}
 		}
 
 		private void LoadValuesFromIniFile()
