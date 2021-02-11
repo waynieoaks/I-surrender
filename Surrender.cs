@@ -14,6 +14,10 @@ namespace Surrender
 		public static Keys SurrenderModifierKey { get; set; }
 		public static Keys ClearKey { get; set; }
 		public static Keys ClearModifierKey { get; set; }
+		public static ControllerKeybinds SurrenderBtn { get; set; }
+		public static ControllerKeybinds SurrenderModifyBtn { get; set; }
+		public static ControllerKeybinds ClearBtn { get; set; }
+		public static ControllerKeybinds ClearModifyBtn { get; set; }
 		public static bool DropWeapon { get; set; }
 		public static bool AmIArrested { get; set; }
 		public static bool AmIWasted { get; set; }
@@ -25,6 +29,7 @@ namespace Surrender
 			LoadValuesFromIniFile();
 
 			KeyDown += OnKeyDown;
+			Tick += OnControllerDown;
 			Tick += ChkWantedTick;
 
 			//Interval = 50;
@@ -47,22 +52,68 @@ namespace Surrender
 				DoClearWanted();
 			}
 //////////////////  TESTING -- REMOVE ////////////////// 
-			//else if (e.KeyCode == Keys.F10)
-			//{
-			//	// Remove after testking kill... 
-			//	Game.Player.WantedLevel = 2;
-			//}
-			//else if (e.KeyCode == Keys.F9)
-			//{
-			//	// Remove after testking kill... 
-			//	Game.Player.Character.Kill();
-			//}
-			//else if (e.KeyCode == Keys.F8)
-			//{
-			//	// Testing - what is the state of things
-			//	GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString());
-			//}
+			else if (e.KeyCode == Keys.F10)
+			{
+				// Remove after testking kill... 
+				Game.Player.WantedLevel = 4;
+			}
+			else if (e.KeyCode == Keys.F9)
+			{
+				// Remove after testking kill... 
+				Game.Player.Character.Kill();
+			}
+			else if (e.KeyCode == Keys.F8)
+			{
+				// Testing - what is the state of things
+				GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString());
+			}
 //////////////////  TESTING -- END ////////////////// 
+		}
+
+		private void OnControllerDown(object sender, EventArgs e)
+		{
+			if (SurrenderBtn != ControllerKeybinds.None)
+			{
+				if (SurrenderModifyBtn != ControllerKeybinds.None)
+				{
+					if (Game.IsControlPressed((GTA.Control)SurrenderModifyBtn) && Game.IsControlJustReleased((GTA.Control)SurrenderBtn))
+					{
+						if (AmISurrendering == true)
+						{
+							DoEscape();
+						}
+						else
+						{
+							DoSurrender();
+						}
+					}
+				}
+				else if (SurrenderModifyBtn == ControllerKeybinds.None && Game.IsControlJustReleased((GTA.Control)SurrenderBtn))
+				{
+					if (AmISurrendering == true)
+					{
+						DoEscape();
+					}
+					else
+					{
+						DoSurrender();
+					}
+				}
+			}
+			if (ClearBtn != ControllerKeybinds.None)
+			{
+				if (ClearModifyBtn != ControllerKeybinds.None)
+				{
+					if (Game.IsControlPressed((GTA.Control)ClearModifyBtn) && Game.IsControlJustReleased((GTA.Control)ClearBtn))
+					{
+						DoClearWanted();
+					}
+				}
+				else if (ClearModifyBtn == ControllerKeybinds.None && Game.IsControlJustReleased((GTA.Control)ClearBtn))
+				{
+					DoClearWanted();
+				}
+			}
 		}
 
 		private void DoClearWanted()
@@ -88,11 +139,10 @@ namespace Surrender
 			WantedLvL = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
 			if (WantedLvL > 0)
 			{
-				if (WantedLvL > 1)
-				{
-					// Make sure wanted level is 1 star to prevent shooting
-					Game.Player.WantedLevel = 1;
-				}
+				Game.Player.WantedLevel = 0;
+				Wait(1);
+				Game.Player.WantedLevel = 1;
+				Wait(1);
 
 				// If in vehicle, get out
 				if (Game.Player.Character.IsInVehicle())
@@ -154,11 +204,34 @@ namespace Surrender
 		{
 			AmISurrendering = false;
 			ScriptSettings scriptSettings = ScriptSettings.Load(INIpath);
-			SurrenderKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Surrender_Key", Keys.K);
-			SurrenderModifierKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Surrender_Modifier", Keys.ControlKey);
-			ClearKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Clear_Wanted_Key", Keys.L);
-			ClearModifierKey = (Keys)scriptSettings.GetValue<Keys>("Controls", "Clear_Wanted_Modifier", Keys.ControlKey);
+			SurrenderKey = (Keys)scriptSettings.GetValue<Keys>("Keybinds", "Surrender_Key", Keys.K);
+			SurrenderModifierKey = (Keys)scriptSettings.GetValue<Keys>("Keybinds", "Surrender_Modifier", Keys.ControlKey);
+			ClearKey = (Keys)scriptSettings.GetValue<Keys>("Keybinds", "Clear_Wanted_Key", Keys.L);
+			ClearModifierKey = (Keys)scriptSettings.GetValue<Keys>("Keybinds", "Clear_Wanted_Modifier", Keys.ControlKey);
+			SurrenderBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Surrender_Btn", ControllerKeybinds.None);
+			SurrenderModifyBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Surrender_Modifier_Btn", ControllerKeybinds.None);
+			ClearBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Clear_Wanted_Btn", ControllerKeybinds.None);
+			ClearModifyBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Clear_Wanted_Modifier_Btn", ControllerKeybinds.None);
 			DropWeapon = (bool)scriptSettings.GetValue<bool>("Options", "DropWeapon", true);
+		}
+
+		public enum ControllerKeybinds
+		{
+			None = -1, // 0xFFFFFFFF
+			A = 201, // 0x000000C9
+			B = 202, // 0x000000CA
+			X = 203, // 0x000000CB
+			Y = 204, // 0x000000CC
+			LB = 226, // 0x000000E2
+			RB = 227, // 0x000000E3
+			LT = 228, // 0x000000E4
+			RT = 229, // 0x000000E5
+			LS = 230, // 0x000000E6
+			RS = 231, // 0x000000E7
+			DPadUp = 232, // 0x000000E8
+			DPadDown = 233, // 0x000000E9
+			DPadLeft = 234, // 0x000000EA
+			DPadRight = 235, // 0x000000EB
 		}
 	}
 }
