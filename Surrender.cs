@@ -1,5 +1,6 @@
 ﻿using System;
 using GTA;
+using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
 
@@ -19,6 +20,9 @@ namespace Surrender
 		public static ControllerKeybinds ClearBtn { get; set; }
 		public static ControllerKeybinds ClearModifyBtn { get; set; }
 		public static bool DropWeapon { get; set; }
+		public static bool ChangeProtaganist { get; set; }
+		public static string Protaganist { get; set; }
+		public static PedHash ProtaganistHash { get; set; }
 		public static bool AmIArrested { get; set; }
 		public static bool AmIWasted { get; set; }
 		public static bool AmISurrendering { get; set; }
@@ -174,29 +178,54 @@ namespace Surrender
 
 		private void ChkWantedTick(object sender, EventArgs e)
 		{
+					
 			WantedLvL = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
 			AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
 			AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
 
-			if ( (AmISurrendering == true) && (WantedLvL > 0) )
+			if (AmIWasted == true)
 			{
-				if ((AmIArrested == true) || (AmIWasted == true))
+				// I have been killed
+				AmISurrendering = false;
+				//Wait for screen to have faded black
+				while (GTA.UI.Screen.IsFadedOut == false)
 				{
-					// I have been arrested or killed, inform the code and breakout
+					Wait(1);
+				}
+
+				Wait(3500); // Wait a further 3.5 seconds
+				GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
+
+				return;
+			}
+			else if (WantedLvL > 0)
+			{
+				if (AmIArrested == true)
+				{
 					AmISurrendering = false;
+					//Wait for screen to have faded black
+					while (GTA.UI.Screen.IsFadedOut == false)
+					{
+						Wait(1); 
+					}
+					
+					Wait(3500);	// Wait a further 3.5 seconds
+					GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
+					
 					return;
 				}
-				else
+				else if (AmISurrendering == true)
 				{
 					// Attempt to keep wanted level at 1 star
 					Game.Player.WantedLevel = 1;
 					return;
+				} 
+				else
+				{
+					// I should not be surrendering anyway
+					AmISurrendering = false;
+					return;
 				}
-			} else
-			{
-				// I should not be surrendering
-				AmISurrendering = false;
-				return;
 			}
 		}
 
@@ -213,6 +242,14 @@ namespace Surrender
 			ClearBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Clear_Wanted_Btn", ControllerKeybinds.None);
 			ClearModifyBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Clear_Wanted_Modifier_Btn", ControllerKeybinds.None);
 			DropWeapon = (bool)scriptSettings.GetValue<bool>("Options", "DropWeapon", true);
+		//	ChangeProtaganist = (bool)scriptSettings.GetValue<bool>("Options", "ChangeProtaganist", true);
+		//	Protaganist = (string)scriptSettings.GetValue<string>("Options", "Protaganist", "Michael");
+
+			// Errorhandling - ensure protaganist is valid
+		//	if (Protaganist == "Michael") { ProtaganistHash = PedHash.Michael; }
+		//	else if (Protaganist == "Trevor") { ProtaganistHash = PedHash.Trevor; }
+		//	else if (Protaganist == "Franklin") { ProtaganistHash = PedHash.Franklin; }
+		//	else { ProtaganistHash = PedHash.Michael; } // Invalid, so default to Michael
 		}
 
 		public enum ControllerKeybinds
