@@ -19,13 +19,17 @@ Modifiers allowing key combinations can be set to Alt, Control, Shift or None.
 
 ## Current limitations or known issues: ##
 
-- Currently controller is not supported (planned in future)
+- None reported
 
 ## Installation: ##
 
 1. Ensure you have the latest version of ScripthookV and Scripthookv.Net installed correctly.
 2. Copy the scripts folder into your "Grand Theft Auto V" install folder
 3. Edit the .ini to meet your requirements
+
+## Important: ##
+If using **Simple Trainer**, you will need to set the following in the trainer.ini file to prevent conflicts: 
+> OverrideLoopFix=1
 
 ## Version history: ## 
 
