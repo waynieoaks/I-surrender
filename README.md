@@ -43,3 +43,4 @@ If using **Simple Trainer**, you will need to set the following in the trainer.i
 - [leec22](https://gtaforums.com/profile/1170715-leec22): Helping understand scripthookv.net coding
 - [mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protaganist. 
 - [Meth0d](https://www.gta5-mods.com/users/Meth0d): Providing source code for [PedSelector.dll](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) to allow the modification
+- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie) Allowing [Elsa Add-On Ped](https://www.gta5-mods.com/player/elsa-of-arendelle-frozen-ii-addon-streamed-ped) for testing and promotional video
