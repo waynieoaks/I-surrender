@@ -40,7 +40,10 @@ In order to prevent model reset on wasted and crash on busted, change the follow
 #### Menyoo: ####
 To prevent changing on busted/wasted, either turn off **Reset player model on death** in the menu and save the settings or edit menyooConfig.ini setting the following value: 
 > DeathModelReset = false
+
 **Note:** Menyoo will re-apply the model after respawn so if you do not change this, you will see Michael for a few seconds after  respawn.
+
+
 
 ## Version history: ## 
 
