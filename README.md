@@ -21,6 +21,8 @@ Controller support available using a combination of buttons which can be disable
 ## Current limitations or known issues: ##
 
 - [AddonPeds Mod](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) will force model back to main character.
+  - An optional replacement PedSelector.dll is included to prevent this if required
+
 
 ## Installation: ##
 
