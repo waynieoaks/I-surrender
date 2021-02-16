@@ -15,7 +15,8 @@ Features:
 
 Current limitations or known issues:
 
-1. [AddonPeds Mod](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) will force model back to main character. 
+- With DropWeapon is enabled, you sometimes put weapon away instead of drop it
+- [AddonPeds Mod](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) will force model back to main character. 
        An optional replacement PedSelector.dll is included to prevent this if required
 
 Installation:
@@ -23,9 +24,26 @@ Installation:
 2. Copy the scripts folder into your "Grand Theft Auto V" install folder
 3. Edit the .ini to meet your requirements
 
-Important:
-If using Simple Trainer, you will need to set the following in the trainer.ini file to prevent conflicts: 
-	OverrideLoopFix=1
+Using with trainers:
+Certain trainer scripts will reset your player back to Michael, Trevor, or Frankin. To prevent this, you will need to change the settings for the trainer in question:
+
+Simple Trainer:
+In order to prevent model reset on wasted and crash on busted, change the following value in the trainer.ini file:
+
+OverrideLoopFix=1
+
+Menyoo:
+To prevent changing on busted/wasted, either turn off Reset player model on death in the menu and save the settings or edit menyooConfig.ini setting the following value:
+
+DeathModelReset = false
+
+Note: Menyoo will re-apply the model after respawn so if you do not change this, you will see Michael for a few seconds after respawn.
+
+Enhanced Native Trainer / PC Trainer:
+There does not appear to be a way to disable such a feature in ENT. You seem to always spawn at the hospital regardless. The same with PC Trainer - I cannot find a way to disable the change character feature.
+
+Other trainers:
+Check the settings file or menu to see if it is possible to turn the feature of changing model on respawn off - unfortunately there are a few trainers that do not allow this.
 
 Version history: 
 
@@ -36,3 +54,4 @@ Credits:
 - [leec22](https://gtaforums.com/profile/1170715-leec22): Helping understand scripthookv.net coding
 - [mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protaganist. 
 - [Meth0d](https://www.gta5-mods.com/users/Meth0d): Providing source code for PedSelector.dll to allow the modification
+- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie) Allowing Elsa Add-On Ped for testing and demo video
