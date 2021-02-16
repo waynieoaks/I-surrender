@@ -37,4 +37,5 @@ If using **Simple Trainer**, you will need to set the following in the trainer.i
 - Initial public release
 
 ## Credits: ## 
-[mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protaganist. 
+- [leec22](https://gtaforums.com/profile/1170715-leec22): Helping understand scripthookv.net coding
+- [mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protaganist. 
