@@ -43,10 +43,10 @@ To prevent changing on busted/wasted, either turn off **Reset player model on de
 
 **Note:** Menyoo will re-apply the model after respawn so if you do not change this, you will see Michael for a few seconds after  respawn.
 
-### Enhanced Native Trainer / PC Trainer: ###
+#### Enhanced Native Trainer / PC Trainer: ####
 There does not appear to be a way to disable such a feature in **ENT**. You seem to always spawn at the hospital regardless. 
 
-### Other trainers: ###
+#### Other trainers: ####
 Check the settings file or menu to see if it is possible to turn the feature of changing model on respawn off - unfortunately there are a few trainers that do not allow this. 
 
 ## Version history: ## 
