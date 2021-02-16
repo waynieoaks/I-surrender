@@ -8,7 +8,7 @@ You can either give up to the police without them shooting you or just clear you
 
 A list of potential keybindings can be found: https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=netframework-4.8 or to disable a binding (e.g. the clear wanted option) set it to None. Modifiers allowing key combinations can be set to Alt, Control, Shift or None.
 
-Controller support available using a combination of buttons which can be disabled by setting to Noone. 
+Controller support available using a combination of buttons which can be disabled by setting to None. 
 
 ## Features: ##
 
