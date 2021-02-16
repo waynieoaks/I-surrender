@@ -4,3 +4,5 @@ bin/Debug/ScriptHookVDotNet3.xml
 .vs/Surrender/v16/.suo
 .vs/Surrender/v16/Server/sqlite3/storage.ide
 .vs/Surrender/v16/Server/sqlite3/storage.ide-shm
+.vs/Surrender/v16/Server/sqlite3/db.lock
+.vs/Surrender/v16/Server/sqlite3/storage.ide-wal
