@@ -1,6 +1,5 @@
 ﻿using System;
 using GTA;
-using GTA.Math;
 using GTA.Native;
 using System.Windows.Forms;
 
@@ -20,9 +19,6 @@ namespace Surrender
 		public static ControllerKeybinds ClearBtn { get; set; }
 		public static ControllerKeybinds ClearModifyBtn { get; set; }
 		public static bool DropWeapon { get; set; }
-		public static bool ChangeProtaganist { get; set; }
-		public static string Protaganist { get; set; }
-		public static PedHash ProtaganistHash { get; set; }
 		public static bool AmIArrested { get; set; }
 		public static bool AmIWasted { get; set; }
 		public static bool AmISurrendering { get; set; }
@@ -48,8 +44,7 @@ namespace Surrender
 					DoEscape();
 				} else {
 					DoSurrender();
-				}
-				
+				}	
 			}
 			else if (e.KeyCode == ClearKey && e.Modifiers == ClearModifierKey)
 			{
@@ -69,6 +64,7 @@ namespace Surrender
 			else if (e.KeyCode == Keys.F8)
 			{
 				// Testing - what is the state of things
+				GTA.UI.Notification.Show("Wanted level " + Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL));
 				GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString());
 			}
 //////////////////  TESTING -- END ////////////////// 
@@ -151,13 +147,11 @@ namespace Surrender
 				// If in vehicle, get out
 				if (Game.Player.Character.IsInVehicle())
 				{
-					//Vehicle playerVehicle = Game.Player.Character.CurrentVehicle;
 					Game.Player.Character.Task.LeaveVehicle(Game.Player.Character.CurrentVehicle, true);
 
 					// Wait until out of vehicle before putting hands up
 					Wait(2000);
 				}
-				
 				HandsUp();
 			}
 		}
@@ -177,8 +171,7 @@ namespace Surrender
 		}
 
 		private void ChkWantedTick(object sender, EventArgs e)
-		{
-					
+		{			
 			WantedLvL = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
 			AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
 			AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
@@ -190,7 +183,13 @@ namespace Surrender
 				//Wait for screen to have faded black
 				while (GTA.UI.Screen.IsFadedOut == false)
 				{
-					Wait(1);
+					if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_DEATH) < 10000)
+					{
+						Wait(1);
+					} else
+					{
+						return;
+					}
 				}
 
 				Wait(3500); // Wait a further 3.5 seconds
@@ -206,7 +205,14 @@ namespace Surrender
 					//Wait for screen to have faded black
 					while (GTA.UI.Screen.IsFadedOut == false)
 					{
-						Wait(1); 
+						if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_ARREST) < 10000)
+						{
+							Wait(1);
+						}
+						else
+						{
+							return;
+						}
 					}
 					
 					Wait(3500);	// Wait a further 3.5 seconds
@@ -242,14 +248,6 @@ namespace Surrender
 			ClearBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Clear_Wanted_Btn", ControllerKeybinds.None);
 			ClearModifyBtn = (ControllerKeybinds)scriptSettings.GetValue<ControllerKeybinds>("Controller", "Clear_Wanted_Modifier_Btn", ControllerKeybinds.None);
 			DropWeapon = (bool)scriptSettings.GetValue<bool>("Options", "DropWeapon", true);
-		//	ChangeProtaganist = (bool)scriptSettings.GetValue<bool>("Options", "ChangeProtaganist", true);
-		//	Protaganist = (string)scriptSettings.GetValue<string>("Options", "Protaganist", "Michael");
-
-			// Errorhandling - ensure protaganist is valid
-		//	if (Protaganist == "Michael") { ProtaganistHash = PedHash.Michael; }
-		//	else if (Protaganist == "Trevor") { ProtaganistHash = PedHash.Trevor; }
-		//	else if (Protaganist == "Franklin") { ProtaganistHash = PedHash.Franklin; }
-		//	else { ProtaganistHash = PedHash.Michael; } // Invalid, so default to Michael
 		}
 
 		public enum ControllerKeybinds
