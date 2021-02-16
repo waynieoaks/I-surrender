@@ -34,12 +34,13 @@ Controller support available using a combination of buttons which can be disable
 Certain trainer scripts will reset your player back to Michael, Trevor, or Frankin. To prevent this, you will need to change the settings for the triner in question, for example: 
 
 #### Simple Trainer: ####
-Change the following value in the trainer.ini file: 
+In order to prevent model reset on wasted and crash on busted, change the following value in the trainer.ini file: 
 > OverrideLoopFix=1
 
 #### Menyoo: ####
-Either turn off **Reset player model on death** in the menu and save the settings or edit menyooConfig.ini setting the following value: 
+To prevent changing on busted/wasted, either turn off **Reset player model on death** in the menu and save the settings or edit menyooConfig.ini setting the following value: 
 > DeathModelReset = false
+**Note:** Menyoo will re-apply the model after respawn so if you do not change this, you will see Michael for a few seconds after  respawn.
 
 ## Version history: ## 
 
