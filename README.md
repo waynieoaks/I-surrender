@@ -35,3 +35,6 @@ If using **Simple Trainer**, you will need to set the following in the trainer.i
 
 1.0.0 
 - Initial public release
+
+## Credits: ## 
+[mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protaganist. 
