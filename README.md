@@ -33,11 +33,11 @@ Controller support available using a combination of buttons which can be disable
 ## Use of trainers: ##
 Certain trainer scripts will reset your player back to Michael, Trevor, or Frankin. To prevent this, you will need to change the settings for the triner in question, for example: 
 
-### Simple Trainer: ###
+#### Simple Trainer: ####
 Change the following value in the trainer.ini file: 
 > OverrideLoopFix=1
 
-### Menyoo: ###
+#### Menyoo: ####
 Either turn off **Reset player model on death** in the menu and save the settings or edit menyooConfig.ini setting the following value: 
 > DeathModelReset = false
 
