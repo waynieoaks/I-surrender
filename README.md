@@ -40,3 +40,4 @@ If using **Simple Trainer**, you will need to set the following in the trainer.i
 ## Credits: ## 
 - [leec22](https://gtaforums.com/profile/1170715-leec22): Helping understand scripthookv.net coding
 - [mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protaganist. 
+- [Meth0d](https://www.gta5-mods.com/users/Meth0d): Providing source code for PedSelector.dll to allow the modification
