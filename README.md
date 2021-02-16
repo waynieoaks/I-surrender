@@ -30,7 +30,7 @@ Controller support available using a combination of buttons which can be disable
 2. Copy the scripts folder into your "Grand Theft Auto V" install folder
 3. Edit the .ini to meet your requirements
 
-## Use of trainers: ##
+## Using with trainers: ##
 Certain trainer scripts will reset your player back to Michael, Trevor, or Frankin. To prevent this, you will need to change the settings for the triner in question, for example: 
 
 #### Simple Trainer: ####
