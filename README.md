@@ -31,7 +31,7 @@ Controller support available using a combination of buttons which can be disable
 3. Edit the .ini to meet your requirements
 
 ## Using with trainers: ##
-Certain trainer scripts will reset your player back to Michael, Trevor, or Frankin. To prevent this, you will need to change the settings for the triner in question, for example: 
+Certain trainer scripts will reset your player back to Michael, Trevor, or Frankin. To prevent this, you will need to change the settings for the trainer in question: 
 
 #### Simple Trainer: ####
 In order to prevent model reset on wasted and crash on busted, change the following value in the trainer.ini file: 
@@ -45,6 +45,9 @@ To prevent changing on busted/wasted, either turn off **Reset player model on de
 
 ### Enhanced Native Trainer: ###
 There does not appear to be a way to disable such a feature in **ENT**. You seem to always spawn at the hospital regardless. 
+
+### Other trainers: ###
+
 
 ## Version history: ## 
 
