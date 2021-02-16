@@ -7,7 +7,6 @@ namespace Surrender
 {
 	public class Main : Script
 	{
-		//public static bool AreHandsUp { get; set; }
 		public static string INIpath = "scripts\\Surrender.ini";
 		public static ScriptSettings IniSettings;
 		public static Keys SurrenderKey { get; set; }
@@ -183,17 +182,22 @@ namespace Surrender
 				//Wait for screen to have faded black
 				while (GTA.UI.Screen.IsFadedOut == false)
 				{
-					if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_DEATH) < 10000)
+					if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_DEATH) < 6000)
 					{
 						Wait(1);
 					} else
 					{
+						// Loop has been running too long, break out
 						return;
 					}
 				}
 
 				Wait(3500); // Wait a further 3.5 seconds
 				GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
+/////////////////// TESTING - REMOVE /////////////////////////////////
+				GTA.UI.Notification.Show("DEBUG: Am I Surrendering? " + AmISurrendering.ToString());
+				GTA.UI.Notification.Show("DEBUG: Last Death: " + Function.Call<int>(Hash.GET_TIME_SINCE_LAST_DEATH).ToString() + "ms");
+/////////////////// END TESTING - REMOVE ///////////////////////////////
 
 				return;
 			}
@@ -205,19 +209,26 @@ namespace Surrender
 					//Wait for screen to have faded black
 					while (GTA.UI.Screen.IsFadedOut == false)
 					{
-						if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_ARREST) < 10000)
+						if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_ARREST) < 6000)
 						{
 							Wait(1);
 						}
 						else
 						{
+							// Loop has been running too long, break out
 							return;
 						}
 					}
 					
 					Wait(3500);	// Wait a further 3.5 seconds
 					GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
-					
+
+/////////////////////// TESTING - REMOVE //////////////////////////////
+					GTA.UI.Notification.Show("DEBUG: Am I Surrendering? " + AmISurrendering.ToString());
+					GTA.UI.Notification.Show("DEBUG: Last Arrest: " + Function.Call<int>(Hash.GET_TIME_SINCE_LAST_ARREST).ToString() + "ms");
+/////////////////////// END TESTING - REMOVE /////////////////////////////
+
+
 					return;
 				}
 				else if (AmISurrendering == true)
