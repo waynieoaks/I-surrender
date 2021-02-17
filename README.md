@@ -51,7 +51,7 @@ Check the settings file or menu to see if it is possible to turn the feature of 
 
 ## Version history: ## 
 
-1.0.0 
+1.0.1 
 - Initial public release
 
 ## Credits: ## 
