@@ -30,6 +30,8 @@ namespace Surrender
 			KeyDown += OnKeyDown;
 			Tick += OnControllerDown;
 			Tick += ChkWantedTick;
+
+			Interval = 0;
 		}
 
 		private void OnKeyDown(object sender, KeyEventArgs e)
@@ -47,24 +49,6 @@ namespace Surrender
 			{
 				DoClearWanted();
 			}
-//////////////////  TESTING -- REMOVE ////////////////// 
-			//else if (e.KeyCode == Keys.F10)
-			//{
-			//	// Remove after testking kill... 
-			//	Game.Player.WantedLevel = 4;
-			//}
-			//else if (e.KeyCode == Keys.F9)
-			//{
-			//	// Remove after testking kill... 
-			//	Game.Player.Character.Kill();
-			//}
-			//else if (e.KeyCode == Keys.F8)
-			//{
-			//	// Testing - what is the state of things
-			//	GTA.UI.Notification.Show("Wanted level " + Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL));
-			//	GTA.UI.Notification.Show("Am I Surrendering? " + AmISurrendering.ToString());
-			//}
-//////////////////  TESTING -- END ////////////////// 
 		}
 
 		private void OnControllerDown(object sender, EventArgs e)
@@ -155,20 +139,14 @@ namespace Surrender
 
 		private void HandsUp()
 		{
-
-			Ped MyPed = Game.Player.Character;
 			// Inform code I am surrendering
 			AmISurrendering = true;
 
 			// If holding a weapon, drop it
 			if (DropWeapon == true)
 			{
-				Function.Call(Hash.SET_PED_DROPS_WEAPON, MyPed);
-				//Function.Call(Hash.SET_PED_DROPS_WEAPON, Game.Player.Character);
-				/////////////////// TESTING - REMOVE /////////////////////////////////
-				GTA.UI.Notification.Show("DEBUG: Drop weapon? " + DropWeapon.ToString());
-/////////////////// END TESTING - REMOVE ///////////////////////////////
-
+				Function.Call(Hash.SET_PED_DROPS_INVENTORY_WEAPON, Game.Player.Character, Game.Player.Character.Weapons.Current.Hash, 0.4, 0.7, -0.1, -1);
+				Function.Call(Hash.SET_CURRENT_PED_WEAPON, Game.Player.Character, 0xA2719263, true);
 			}
 			// Put hands up until code breaks
 			Game.Player.Character.Task.HandsUp(-1);
@@ -199,10 +177,6 @@ namespace Surrender
 
 				Wait(3500); // Wait a further 3.5 seconds
 				GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
-/////////////////// TESTING - REMOVE /////////////////////////////////
-				//GTA.UI.Notification.Show("DEBUG: Am I Surrendering? " + AmISurrendering.ToString());
-				//GTA.UI.Notification.Show("DEBUG: Last Death: " + Function.Call<int>(Hash.GET_TIME_SINCE_LAST_DEATH).ToString() + "ms");
-/////////////////// END TESTING - REMOVE ///////////////////////////////
 
 				return;
 			}
@@ -227,11 +201,6 @@ namespace Surrender
 					
 					Wait(3500);	// Wait a further 3.5 seconds
 					GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
-
-/////////////////////// TESTING - REMOVE //////////////////////////////
-					//GTA.UI.Notification.Show("DEBUG: Am I Surrendering? " + AmISurrendering.ToString());
-					//GTA.UI.Notification.Show("DEBUG: Last Arrest: " + Function.Call<int>(Hash.GET_TIME_SINCE_LAST_ARREST).ToString() + "ms");
-/////////////////////// END TESTING - REMOVE /////////////////////////////
 
 					return;
 				}
