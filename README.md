@@ -20,7 +20,6 @@ Controller support available using a combination of buttons which can be disable
 
 ## Current limitations or known issues: ##
 
-- With DropWeapon is enabled, you sometimes put weapon away instead of drop it
 - [AddonPeds Mod](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) will force model back to main character.
   - An optional replacement PedSelector.dll is included to prevent this if required
 
@@ -52,11 +51,11 @@ Check the settings file or menu to see if it is possible to turn the feature of 
 
 ## Version history: ## 
 
-1.0.0 
+1.0.1 
 - Initial public release
 
 ## Credits: ## 
 - [leec22](https://gtaforums.com/profile/1170715-leec22): Helping understand scripthookv.net coding
 - [mrtank2333](https://github.com/mrtank2333): Source code for [Player Death No Reset](https://github.com/mrtank2333/Player-Death-No-Reset-Model-Source-code) helped solve game hanging on wasted/busted for non protaganist. 
 - [Meth0d](https://www.gta5-mods.com/users/Meth0d): Providing source code for [PedSelector.dll](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) to allow the modification
-- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie) Allowing [Elsa Add-On Ped](https://www.gta5-mods.com/player/elsa-of-arendelle-frozen-ii-addon-streamed-ped) for testing and demo video
+- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie) Add on peds for testing 
