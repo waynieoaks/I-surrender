@@ -15,7 +15,6 @@ Features:
 
 Current limitations or known issues:
 
-- With DropWeapon is enabled, you sometimes put weapon away instead of drop it
 - [AddonPeds Mod](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) will force model back to main character. 
        An optional replacement PedSelector.dll is included to prevent this if required
 
