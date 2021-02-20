@@ -8,10 +8,10 @@ Controller support available using a combination of buttons which can be disable
 
 Features:
 - Surrender by putting hands up until "Busted"
-- Wanted level kept at 1 star to prevent agressive cops while surrendering
+- Wanted level kept at 1 star to prevent aggressive cops while surrendering
 - Cancel and try to keep running (still busted if they catch you)
 - (If enabled) Cheat and clear your wanted level
-- Option to drop weapon in hand on surrendering (gun may misfire when hitting ground)
+- Option to drop weapon in hand on surrendering
 
 Current limitations or known issues:
 
@@ -51,6 +51,6 @@ Version history:
 
 Credits:
 - [leec22](https://gtaforums.com/profile/1170715-leec22): Helping understand scripthookv.net coding
-- [mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protaganist. 
+- [mrtank2333](https://github.com/mrtank2333): Public code helped solve game hanging on wasted/busted for non protagonist. 
 - [Meth0d](https://www.gta5-mods.com/users/Meth0d): Providing source code for PedSelector.dll to allow the modification
-- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie) Add-On Peds for testing
+- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie): Great add-On Peds for testing and demo video
