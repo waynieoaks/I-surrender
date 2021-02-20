@@ -60,4 +60,4 @@ Check the settings file or menu to see if it is possible to turn the feature of 
 - [leec22](https://gtaforums.com/profile/1170715-leec22): Helping understand scripthookv.net coding
 - [mrtank2333](https://github.com/mrtank2333): Source code for [Player Death No Reset](https://github.com/mrtank2333/Player-Death-No-Reset-Model-Source-code) helped solve game hanging on wasted/busted for non protagonist. 
 - [Meth0d](https://www.gta5-mods.com/users/Meth0d): Providing source code for [PedSelector.dll](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) to allow the modification
-- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie) Add on peds for testing 
+- [huckleberrypie](https://www.gta5-mods.com/users/huckleberrypie): Gread add-on peds for testing and for the demo video
