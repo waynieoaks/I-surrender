@@ -6,6 +6,8 @@ OK, OK, Don't shoot - I give up!
 I Surrender is a GTA V (ScripthookV.Net) script allowing you to surrender to police when wanted. 
 You can either give up to the police without them shooting you or just clear your wanted level altogether (you cheater). 
 
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/XDG5M4WmO4c/0.jpg)](https://youtu.be/XDG5M4WmO4c "I Surrender Demo")
+
 A list of potential keybindings can be found: https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=netframework-4.8 or to disable a binding (e.g. the clear wanted option) set it to None. Modifiers allowing key combinations can be set to Alt, Control, Shift or None.
 
 Controller support available using a combination of buttons which can be disabled by setting to None. 
@@ -17,8 +19,6 @@ Controller support available using a combination of buttons which can be disable
 - Cancel and try to keep running (still busted if they catch you)
 - (If enabled) Cheat and clear your wanted level
 - Option to drop weapon in hand on surrendering
-
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/XDG5M4WmO4c/0.jpg)](https://youtu.be/XDG5M4WmO4c "I Surrender Demo")
 
 ## Current limitations or known issues: ##
 
