@@ -18,6 +18,8 @@ Controller support available using a combination of buttons which can be disable
 - (If enabled) Cheat and clear your wanted level
 - Option to drop weapon in hand on surrendering (gun may misfire when hitting ground)
 
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/XDG5M4WmO4c/0.jpg)](https://youtu.be/XDG5M4WmO4c "I Surrender Demo")
+
 ## Current limitations or known issues: ##
 
 - [AddonPeds Mod](https://www.gta5-mods.com/scripts/addonpeds-asi-pedselector) will force model back to main character.
