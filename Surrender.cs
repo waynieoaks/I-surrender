@@ -22,6 +22,8 @@ namespace Surrender
 		public static bool AmIWasted { get; set; }
 		public static bool AmISurrendering { get; set; }
 		public static int WantedLvL { get; set; }
+		public static string WhoAmI { get; set; }
+		public static bool SkipFade { get; set; }
 
 		public Main()
 		{
@@ -79,7 +81,7 @@ namespace Surrender
 					{
 						DoSurrender();
 					}
-				}
+				} 
 			}
 			if (ClearBtn != ControllerKeybinds.None)
 			{
@@ -153,42 +155,31 @@ namespace Surrender
 		}
 
 		private void ChkWantedTick(object sender, EventArgs e)
-		{			
+		{
+			if ((WhoAmI == "0xD7114C9") || (WhoAmI == "0x9B22DBAF") || (WhoAmI == "0x9B810FA2"))
+			{
+				SkipFade = true;
+			} else
+			{
+				SkipFade = false;
+			}
+
 			WantedLvL = Function.Call<int>(Hash.GET_PLAYER_WANTED_LEVEL);
 			AmIArrested = Function.Call<bool>(Hash.IS_PLAYER_BEING_ARRESTED);
 			AmIWasted = Function.Call<bool>(Hash.IS_PLAYER_DEAD);
+			WhoAmI = Game.Player.Character.Model.ToString();
 
 			if (AmIWasted == true)
 			{
 				// I have been killed
 				AmISurrendering = false;
-				//Wait for screen to have faded black
-				while (GTA.UI.Screen.IsFadedOut == false)
-				{
-					if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_DEATH) < 6000)
-					{
-						Wait(1);
-					} else
-					{
-						// Loop has been running too long, break out
-						return;
-					}
-				}
 
-				Wait(3500); // Wait a further 3.5 seconds
-				GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
-
-				return;
-			}
-			else if (WantedLvL > 0)
-			{
-				if (AmIArrested == true)
+				if (SkipFade == false)
 				{
-					AmISurrendering = false;
 					//Wait for screen to have faded black
 					while (GTA.UI.Screen.IsFadedOut == false)
 					{
-						if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_ARREST) < 6000)
+						if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_DEATH) < 6000)
 						{
 							Wait(1);
 						}
@@ -198,9 +189,38 @@ namespace Surrender
 							return;
 						}
 					}
-					
-					Wait(3500);	// Wait a further 3.5 seconds
+
+					Wait(4500); // Wait a further 4.5 seconds
 					GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
+				}
+
+				return;
+			}
+			else if (WantedLvL > 0)
+			{
+				if (AmIArrested == true)
+				{
+					AmISurrendering = false;
+
+					if (SkipFade == false)
+					{
+						//Wait for screen to have faded black
+						while (GTA.UI.Screen.IsFadedOut == false)
+						{
+							if (Function.Call<int>(Hash.GET_TIME_SINCE_LAST_ARREST) < 6000)
+							{
+								Wait(1);
+							}
+							else
+							{
+								// Loop has been running too long, break out
+								return;
+							}
+						}
+
+						Wait(4500); // Wait a further 4.5 seconds
+						GTA.UI.Screen.FadeIn(5000); // Fade in over 5 seconds
+					}
 
 					return;
 				}

@@ -46,6 +46,10 @@ Check the settings file or menu to see if it is possible to turn the feature of 
 
 Version history: 
 
+1.0.2
+- Fixed fade in too soon after busted / wasted
+- Removed fade in fix from Michael, Franklin and Trevor (Why fix what isn't broken)
+
 1.0.0 
 - Initial public release
 
